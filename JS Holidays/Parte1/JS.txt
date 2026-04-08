@@ -1,0 +1,186 @@
+JavaScript
+
+/////////////////////Funciones/////////////////////
+
+
+-Declarativas (Hoisting: Esta es su característica principal. JavaScript las "eleva" al principio del código, lo que significa que puedes llamar a la función incluso antes de haberla escrito en tu archivo.)
+
+-Expresión (Se guarda dentro de una variable. A diferencia de las declarativas, estas no tienen hoisting. No puedes usarlas antes de definirlas.)
+
+-Flecha - son una sintaxis más corta y moderna. Son siempre expresiones (se guardan en variables)
+
+····DECLARATIVA····
+console.log(calcularIVA(100));
+
+function calcularIVA(precio) {
+    const impuesto = 1.16;
+    return precio * impuesto;
+}
+
+····EXPRESION····
+const esMayorDeEdad = function(edad) {
+    if (edad >= 18) {
+        return "Puedes pasar sin problema";
+    } else {
+        return "No ni madres, no puedes pasar";
+    }
+};
+
+console.log(esMayorDeEdad(17));  //se debe llamar después aquí en EXP
+
+····FLECHA····
+const celtofar = (c) => (c* 9/5) + 32;    // un solo parámetro, una sola linea
+ 
+console.log(celtofar(30));  
+
+
+Usa Declarativas si quieres que la función esté disponible en todo tu archivo (como funciones de utilidad general).
+
+Usa Expresiones si quieres limitar dónde se puede usar la función o si la vas a pasar como argumento a otra.
+
+Usa Flecha para funciones cortas, métodos de arreglos (como .map() o .filter()) o cuando necesites mantener el contexto de this de un objeto padre.
+
+/////////////////////Scope/////////////////////
+
+let y const tienen Scope de Bloque: Un bloque es cualquier cosa entre llaves (un if, un for, o simplemente un par de llaves sueltas). Si declaras un let dentro, al salir de las llaves, la variable "muere"
+
+let counter = 100;
+console.log(counter); // -> 100
+{
+counter = 200;
+console.log(counter); // -> 200
+}
+console.log(counter); // -> 200
+----------------------------------
+let counter = 100;
+console.log(counter); // -> 100
+{
+let counter = 200;   // Creaste una NUEVA variable con el mismo nombre
+console.log(counter); // -> 200   // 200 (la de adentro "tapa" a la de afuera)
+}
+console.log(counter); // -> 100   100 (la de afuera sigue intacta)
+
+Usa siempre let o const para evitar que tus variables "se escapen" de los bloques (como hace var).
+
+Scope Global = Peligroso (muchas partes del código pueden cambiarlo por accidente).
+
+Scope de Bloque = Seguro (el código es más predecible).
+
+/////////////////////Hoisting/////////////////////
+
+Cuando usas var, JavaScript reserva el nombre de la variable al inicio, pero le pone el valor undefined hasta que llega a la línea donde tú le das un valor.
+
+console.log(nombre); // Resultado: undefined
+var nombre = "Alex";
+console.log(nombre); // Resultado: "Alex"
+
+····CASO DE LET Y CONST····
+console.log(apellido);  // temporal dead zone, te obliga a declarar variables before using
+let apellido = "marquez";
+
+····HOSTING EN FUNCIONES····
+
+Aquí es donde el hoisting es más útil. Las Funciones Declarativas se elevan completamente (nombre y cuerpo de la función).
+
+saludar(); // Resultado: "Hola!" (Funciona perfectamente)
+
+function saludar() {
+    console.log("Hola!");
+}
+
+Elemento,    ¿Tiene Hoisting?,     Comportamiento
+var                  Sí                 Se inicializa como undefined.
+let / const   Sí (técnicamente)      No puedes acceder a ellas (da Error).
+function (declarativa),Sí,            "Se eleva todo el bloque, puedes usarla antes."
+function (expresión),No,              "Depende de si usas var, let o const."
+
+/////////////////////OPERADORES/////////////////////
+
+Básicos: +, -, *, / (Suma, resta, multiplicación, división).
+Asignación compuesta: +=, -=, *=, /=. Son atajos.
+** exponente
+% resto
+!== estrictamente diferente 5!="5" true (son tipos distintos)
+x += 5 es lo mismo que decir x = x + 5.
+
+Incremento/Decremento: ++ aumenta en 1, -- resta 1.
+typeof: Muy útil para saber qué tipo de dato es una variable (string, number, boolean, etc.).
+Negación lógica (!): Invierte un valor booleano. !true se convierte en false.
+
+¡Ojo aquí! La diferencia entre == y === es la pregunta más común en entrevistas:
+== (Igualdad débil): Compara el valor pero ignora el tipo. "5" == 5 es true.
+=== (Igualdad estricta): Compara valor y tipo. "5" === 5 es false. Usa siempre este por seguridad.
+
+AND (&&): Devuelve true solo si ambas condiciones son ciertas.
+OR (||): Devuelve true si al menos una de las condiciones es cierta.
+NOT (!): Como vimos en unitarios, voltea el resultado.
+
+let edad = 20;
+let tienecupo = true;
+
+if (edad >= 18 && tienecupo === true) {
+    console.log("Descuento aplicado");
+}
+
+/////////////////////CONDICIONES/////////////////////
+
+····IF/ELSE····
+let hora = 11;
+if (hora < 12) {
+    console.log("Buenos dias");
+} else {
+    console.log("Buenas tardes");
+}
+
+····OPERADOR TERNARIO (IF DE UNA SOLA LINEA) ":"  // "?" Es esto verdad? ····
+
+let edad = 17;
+let mensaje = (edad >= 18) ? "puedes votar" : "Mi loco, dele pa' fuera";
+
+console.log(mensaje); //solo para cosas simples, de si o no
+
+····SWITCH····
+Úsalo cuando tienes muchas opciones para una sola variable. Es más limpio que escribir diez if / else if.
+
+usar cuando comparas una sola variable con muchos valores fijos (usa comparasion estricta)
+
+let fruta = "mango";
+
+switch (fruta) {    //break es importantisimo, sino ejectutara todos los casos
+    case "pera":
+        console.log("Es verde");
+        break;
+    case "uva":
+        console.log("Es morada");
+        break;
+    case "manzana":
+        console.log("es roja");
+        break;
+    default:        //si ninguno coincide
+    console.log("no conozco esa fruta");  
+}
+
+/////////////////////TRULY Y FALSY/////////////////////
+
+Convierte a fuerzas ciertos valores aunque no sean hechos para estos
+
+---TODO LO FALSO---
+false (El booleano real).
+0 (El número cero).
+-0 (Cero negativo).
+"" (String vacío, sin espacio)
+null (Ausencia de valor).
+undefined (Valor no asignado).
+NaN (Not a Number).
+
+---TODO LO VERDADERO---
+{} Objetos vacíos
+[] Arrays vacíos
+" " Strings con un espacio
+fucntion(){} Son contadas como verdaderas
+
+let nombre = "Pepe";  //marcado como verdadero por tener algo
+
+if (nombre) {         // si lo cambio por algo falso no seguirá con el codigo
+    console.log("Hola " + nombre);  
+}
