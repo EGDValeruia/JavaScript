@@ -1,0 +1,156 @@
+JavaScript parte 2 
+
+/////////////////////ARRAYS/////////////////////
+
+let team1 = ['Manzana','Pera'];
+let team2 = ['Pepe','Juan'];
+
+let teams = ['Juanos', ...team1, ...team2]   //necesita ... para poder hacer la lista grande
+
+console.log(team1);  ['Manzana', 'Pera' ]
+console.log(teams);  [ 'Juanos', 'Manzana', 'Pera', 'Pepe', 'Juan' ]
+
+····.LENGTH····
+
+team1[0] ---> Manzana (típicos valores de cadena)
+
+····METODOS MAS IMPORTANTES····
+
+push() / Añade al final    team1.push('Mango');
+pop() / Quita el Ultimo    team1.pop();
+unshift / Añade al inicio
+shift / Quita el primero
+forEach / Solo avisar, o imprimir cosas, no devuelve nada
+map / Para cuando quieres una lista nueva, pero del mismo tamaño
+filter / Para cuadno quieras una lista mas pequeña
+find / Para cuando solo buscas uno solo (el 1ero que encuentre)
+
+/////////////////////LOOPS/////////////////////
+
+····FOR····
+for (let i = 0; i <= 3; i++){
+    console.log("Vuelta numero " + i);   //0,1,2,3
+}
+
+····FOR OF (Ideal para arreglos)····
+let equipo = ['Cr7','Messi','Neymar'];
+
+for (integrante of equipo) {      //variable temporal, contar cada uno de los elementos
+    console.log("Va a pasar ahora " + integrante);
+}
+
+····WHILE····
+let vueltas = 5;
+
+while (vueltas >= 0) {                                 //mientras sea cierta
+    console.log("Ahora faltan", vueltas ,"vueltas");
+    vueltas--;
+}
+
+····DO WHILE····
+1, ejecuta  2, evalúa
+
+el uso mas común es cuando quieres pedirle al usuario un password, y no sabes si lo hará bien a la primera, necesitas que lo intente al menos una vez
+
+let password;
+
+do {
+    password = prompt("Introduce la contraseña");
+} while (password !== "1234");
+
+console.log("Welcome to the system");
+
+/////////////////////CLOSURES/////////////////////
+
+function contar() {
+    let numero = 0;
+    numero++;
+    console.log(numero);
+}
+
+contar(); //1
+contar(); //1
+
+Cada que se llama a contar(), la variable numero nace, se le suma 1, se imprime y muere. No hay memoria
+
+/////////////////////OBJECTS/////////////////////
+
+····FUNCTION····
+
+function auto (marca,modelo,año) {
+ this.marca=marca
+ this.modelo=modelo
+ this.año=año
+}
+
+let autoNuevo1= new auto ("Ford","Mustang",2025)
+let autoNuevo2= new auto ("Toyota","Supra",1990)
+
+····CLASES····
+//una mejor forma de organizar u escribir constructores
+
+class calculator {  
+    constructor() {
+        this.valueA=0
+        this.valueB=0
+    }
+    sum(valueA, valueB) {
+        this.valueA=valueA
+        this.valueB=valueB
+        return this.valueA + this.valueB
+    }
+}
+
+const cal = new calculator()
+console.log(cal.sum(10,20))
+ 
+····INSTANCEOF····
+sirve para preguntar "Este objeto fue creado con este molde?"
+
+let names = ["pati","bob"];
+let name = names[0];
+
+console.log(names instanceof Array); //true
+console.log(name instanceof Array); //false
+
+delete, elimina una propiedad de un objeto, si borras algo eh intentas verlo después, de dará undefined
+
+let user = {
+    name: "Alice",
+    age: 38
+};
+
+console.log(user.age); // 38
+delete user.age;
+console.log(user.age); // undefined
+
+/////////////////////LOOPS IN OBJETCS/////////////////////
+
+const listadecompras = {
+    manzana: 5,
+    pera: 3,
+    naranja: 2,
+    uva: 1,
+};
+
+for (fruta in listadecompras) {
+    console.log(fruta);
+}
+
+for (fruta in listadecompras) {
+    console.log(`${fruta} : ${listadecompras[fruta]}`); // al usar corchete vez lo que tiene
+}
+
+
+todo lo que esta dentro de ${} es como un hoyo en un plantilla, rellena los hoyos con el resultado de la operación que se pone adentro.
+
+
+
+
+
+
+
+
+
+
+
